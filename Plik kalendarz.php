@@ -1,12 +1,8 @@
-<?php
-    $conn = new mysqli(hostname: "localhost",username: "root",password: "",database: "kalendarz");
-?>
 
-<!DOCTYPE html>
+<html>
 <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Kalendarz</title>
         <link rel="stylesheet" href="styl.css">
     </head>
@@ -16,32 +12,9 @@
         </header>
 
         <div id="napis">
-            <?php
-                // Skrypt #1
-                $miesiac = date("m-d");
-
-                // Zamiana dni tygodnia po angielsku na polski
-                $dni_tygodnia = array(
-                    'Monday'    => 'poniedziałek',
-                    'Tuesday'   => 'wtorek',
-                    'Wednesday' => 'środa',
-                    'Thursday'  => 'czwartek',
-                    'Friday'    => 'piątek',
-                    'Saturday'  => 'sobota',
-                    'Sunday'    => 'niedziela'
-                );
-                $dzien_ang = date('l');
-
-                $sql = "SELECT imiona FROM imieniny WHERE data = '$miesiac';";
-	            $result = $conn->query(query: $sql);
-	            while($row = $result -> fetch_array()) {
-                    echo "<p>Dzisiaj jest ".$dni_tygodnia[$dzien_ang].", ".date("d.m.y").", imieniny: $row[0]</p>";
-	            }
-            ?>
         </div>
-
-        <div id="lewy">
-            <table>
+  <div id="lewy">
+        <table>
                 <tr>
                     <th>liczba dni</th>
                     <th>miesiąc</th>
@@ -94,45 +67,25 @@
                 <input type="date" name="data" id="data" min="2024-01-01" max="2024-12-31" required>
                 <input type="submit" value="Wyślij">
             </form>
-            <?php
-                // Skrypt #2
-                if(isset($_POST["data"])) {
-                    $data = $_POST["data"];
-                    $format = date("m-d", strtotime($_POST["data"]));
-                    
-                    $sql = "SELECT imiona FROM imieniny WHERE data = '$format';";
-                    $result = $conn->query(query: $sql);
-                    while($row = $result -> fetch_array()) {
-                        $imieniny = $row[0];
-                    }
-
-                    echo "$data są imieniny: $imieniny";
-                }
-            ?>
         </main>
-
         <div id="prawy">
             <a href="https://pl.wikipedia.org/wiki/Kalendarz_Majów" target="_blank"><img src="kalendarz.gif" alt="Kalendarz Majów"></a>
             <h2>Rodzaje kalendarzy</h2>
             <ol>
-                <li>słoneczny<ul>
-                    <li>kalendarz Majów</li>
-                    <li>juliański</li>
-                    <li>gregoriański</li></ul>
+        <li>słoneczny<ul>
+                <li>kalendarz Majów</li>
+                 <li>juliański</li>
+                 <li>gregoriański</li></ul>
                 </li>
-                <li>księżycowy<ul>
-                    <li>starogrecki</li>
-                    <li>babiloński</li></ul>
+        <li>księżycowy<ul>
+                 <li>starogrecki</li>
+                 <li>babiloński</li></ul>
                 </li>
             </ol>
         </div>
 
         <footer>
-            <p>Stronę opracował(a): <a href="https://ee-informatyk.pl/" target="_blank" style="text-decoration: none;color:unset;">EE-Informatyk.pl</a></p>
+            <p>Stronę opracował(a): <a href="https://ee-informatyk.pl/" target="_blank" style="text-decoration: none;color:unset;">Mateusz</a></p>
         </footer>
     </body>
 </html>
-
-<?php
-    $conn -> close();
-?>
